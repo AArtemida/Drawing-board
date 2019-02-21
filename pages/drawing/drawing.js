@@ -9,7 +9,7 @@ function convertToGrayscale(data) {
   }
   return data
 }
-//bug：无法解决canvas层级问题 => canvas和图片交替出现 => 闪动明显；点击tab切换类型之后，canvas内容会被清空，=> 图片和canvas交替时调用api，请求缓慢
+//bug：无法解决canvas层级问题 => canvas和图片交替出现 => 闪动明显；点击tab切换类型之后，canvas内容会被清空
 Page({
 
   /**
