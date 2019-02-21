@@ -15,7 +15,7 @@
 6. 隐藏工具栏
 ## View
 #### 启动页
-![image](img/1.png)
+
 #### 工具
 ![image](img/2.png)
 
