@@ -9,7 +9,7 @@ function convertToGrayscale(data) {
   }
   return data
 }
-//bug：无法解决canvas层级问题 => canvas和图片交替出现 => 闪动明显；点击tab切换类型之后，canvas内容会被清空，问题：canvas隐藏会被清空？ => 图片和canvas交替时调用api，请求缓慢
+//bug：无法解决canvas层级问题 => canvas和图片交替出现 => 闪动明显；点击tab切换类型之后，canvas内容会被清空，=> 图片和canvas交替时调用api，请求缓慢
 Page({
 
   /**
@@ -220,7 +220,7 @@ Page({
   getCanvasColor(e) {
     //隐藏框框
     this.setData({ selectToolIndex: null });
-    this.showCanvas();
+    //this.showCanvas();
 
     if (!this.data.isColorPicker) return;
     let _this = this;
@@ -309,7 +309,7 @@ Page({
   saveCanvas() {
     let _this = this;
     //const ctx = wx.createCanvasContext('draw-canvas', this);
-    this.context.save();
+    
     wx.canvasToTempFilePath({ 
       canvasId: 'draw-canvas',
       success: (res) => { 
@@ -326,6 +326,7 @@ Page({
     let _this = this;
     const ctx = wx.createCanvasContext('draw-canvas', this);
     this.setData({ canvasHidden: true });
+    ctx.save();
     ctx.draw(false, () => {
       setTimeout(() => {
         _this.saveCanvas();
@@ -334,11 +335,11 @@ Page({
   },
   //重新显示canvas
   showCanvas(){
-    //const ctx = wx.createCanvasContext('draw-canvas', this);
+    const ctx = wx.createCanvasContext('draw-canvas', this);
     // ctx.drawImage(this.data.imgCanvas, 0, 0);
     // ctx.draw();
-    this.context.restore();
-    this.context.draw();
+    ctx.restore();
+    ctx.draw();
     this.setData({ canvasHidden: false });
   },
   clickImg(){
