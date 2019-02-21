@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wapper">
+    <view class="userinfo">
+      <!-- <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button> -->
+      <block wx:if="{{hasUserInfo}}">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </block>
+    </view>
+    <view class="start-box">
+      <button id="loginbutton" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 登录</button>
+      <button wx:else id="start" bindtap="start">开始</button>
+      <view class="span1"></view>
+      <view class="span2"></view>
+    </view>
+  </view>
+  <view class="canvas-box">
+    <!-- <canvas style=" width: 750rpx; height: 1200rpx;" canvas-id="dotCanvas" disable-scroll="false"></canvas> -->
+  </view>
+</view>

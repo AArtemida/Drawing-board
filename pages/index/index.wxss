@@ -1,0 +1,82 @@
+/**index.wxss**/
+.container{
+  height:1206rpx;
+  padding:0;
+  background: linear-gradient(to top, #af9ce8, #fff);
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 320rpx;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #999;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+@keyframes scaleDraw { /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/ 0%{
+      transform: scale(1);  /*开始为原始大小*/
+  } 25%{
+      transform: scale(1.1); /*放大1.1倍*/
+  } 50%{
+      transform: scale(1);
+  } 75%{
+      transform: scale(1.1);
+  } 
+}
+@keyframes living { 
+  0%{
+      transform: scale(1);
+      opacity: 0.5;  
+  } 50%{
+      transform: scale(1.5);  
+      opacity: 0;   /*圆形放大的同时，透明度逐渐减小为0*/
+  } 100%{
+      transform: scale(1);
+      opacity: 0.5;
+  }
+}
+.span1,.span2{
+  position: absolute;
+  width: 150px;
+  height: 46px;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  animation: living 3s linear infinite;
+  z-index: -1;
+  border-radius:5px;
+}
+.span2{
+    animation-delay: 1.5s; /*第二个span动画延迟1.5秒*/
+}
+#start,#loginbutton{
+  width:150px;
+  height:46px;
+  background: #FCB7B7;
+  color:#fff;
+}
+.start-box{
+  animation: scaleDraw 5s ease-in-out infinite;
+  margin-top:160rpx;
+}
+.canvas-box{
+  position:absolute;
+}
+
+.wapper{
+  padding:200rpx 0;
+  z-index:200;
+}

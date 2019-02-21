@@ -1,0 +1,39 @@
+/* pages/drawing/component/colorpicker1/colorPicker.wxss */
+.clearfix{
+  zoom:1;
+}
+.clearfix:after{
+     content:".";
+     display:block;
+     height:0;
+     clear:both;
+     visibility:hidden;
+
+}
+.block-color{
+  width:150px;
+  height:40px;
+  background:#fff;
+  margin:10px auto;
+}
+.card{
+  padding:10px 2px 10px 10px;
+}
+.color-slider text{
+  float:left;
+  margin-right:25px;
+}
+.input-color{
+  margin:0 auto;
+  line-height:54rpx;
+  text-align:center;
+  padding-left:102rpx;
+}
+.input-color input{
+  width:120rpx;
+  border:1px solid #ccc;
+  border-radius:3px;
+  background:#fff;
+  float:left;
+}
+.input-color text{float:left;margin-right:10px;}

@@ -1,0 +1,8 @@
+<!--pages/drawing/component/colorpicker2/colorPicker.wxml-->
+<view id="colorPicker2" class="color-picker-container">
+    <view class="pick-area">
+      <view class="color-picker-map"></view>
+      <view class="color-picker-bar"></view>
+    </view>
+    <view class="data-area"></view>
+</view>

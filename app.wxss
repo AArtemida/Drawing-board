@@ -1,0 +1,33 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+.clearfix{
+  zoom:1;
+}
+.clearfix:after{
+     content:".";
+     display:block;
+     height:0;
+     clear:both;
+     visibility:hidden;
+
+}
+.float_l{
+	float: left;
+}
+.float_r{
+	float: right;
+}
+.hide{
+	display: none;
+}
+.show{
+	display: block;
+}

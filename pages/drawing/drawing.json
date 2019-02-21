@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "dot-canvas": "./components/dot/dot",
+    "color-plate":"./components/colorplate/color-plate"
+  }
+}

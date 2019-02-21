@@ -1,0 +1,61 @@
+<!--pages/drawing/drawing.wxml-->
+<view class="container">
+  <!--工具栏-->
+  <view class="toolbox clearfix">
+    <view class="tool-icon {{selectToolIndex==index?'select-tool':''}}" wx:for="{{toolList}}"
+    hidden="{{index!=5&&!showTool}}" wx:key="{{index}}">
+     <text class="iconfont tool-iconfont {{item.icon}}" bindtap="showToolChildren" data-index="{{index}}"></text>
+     <!--显示框-->
+      <view class="tool-children" wx:if="{{index!=5}}">
+        <text class="section_title">{{item.title}}</text>
+        <!--滑块-->
+        <view wx:if="{{index == 2}}">
+          <slider bindchange="sliderPenchange" value="{{penSize}}" min="1" max="30" show-value activeColor="#F595B2"
+          block-size="15"/>
+        </view>
+        <view wx:if="{{index == 4}}">
+          <slider bindchange="sliderPenchange" value="{{eraserSize}}" min="1" max="60" show-value activeColor="#F595B2"
+          block-size="15"/>
+        </view>
+        <!--工具-->
+        <view wx:if="{{index==1}}">
+          <button bindtap="changeClear" data-param="false" class="{{!isClear?'select':''}}">
+            <text class="iconfont icon-qianbi"></text></button>
+          <button bindtap="changeClear" data-param="true" class="{{isClear?'select':''}}">
+            <text class="iconfont icon-xiangpica"></text></button>
+          <button bindtap="pickerColor" class="{{isColorPicker?'select':''}}">
+            <text class="iconfont icon-color-picker"></text></button>
+          <button bindtap=""><text class="iconfont icon-youqitong"></text></button>
+        </view>
+        <!--菜单-->
+        <view wx:if="{{index==0}}">
+          <button bindtap="newBuild"><text class="iconfont icon-xinjian"></text></button>
+          <button bindtap="openAndDraw"><text class="iconfont icon-daoru-tianchong"></text></button>
+          <button bindtap="saveAsImg"><text class="iconfont icon-baocun"></text></button>
+        </view>
+        <!--色盘-->
+        <view wx:if="{{index==3}}">
+          <!-- <color-picker class="color-picker" colorData="{{penColor}}"></color-picker> -->
+            <color-plate colorData="{{penColor}}" bindchangecolor="changPenColor"></color-plate>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--图层-->
+  <view class="area">
+    <canvas style="width: 750rpx; height: 1090rpx;" class="{{canvasHidden?'canvas-left':''}}" 
+            canvas-id="draw-canvas" 
+            disable-scroll="false"
+            bindtouchstart="touchStart"
+            bindtouchmove="touchMove"
+            bindtouchend="touchEnd"
+            bindtap="getCanvasColor"></canvas>
+    <image hidden="{{!canvasHidden}}" bindtap="clickImg" class="imgCanvas" src="{{imgCanvas}}"></image>
+  </view>
+  <!--提示框-->
+  <view class="modal-box">
+    <modal hidden="{{!isBuild}}" title="提示" confirm-text="保存" cancel-text="放弃" bindcancel="cancelSave" bindconfirm="confirmSave" no-cancel="{{nocancel}}">
+       即将新建，是否保存当前图片？
+    </modal>
+  </view>
+</view>
