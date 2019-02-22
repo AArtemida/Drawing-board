@@ -80,3 +80,10 @@
   padding:200rpx 0;
   z-index:200;
 }
+.canvas-box{
+  position: absolute;
+  width: 720rpx;
+  height: 1200rpx;
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+  top:0;
+}

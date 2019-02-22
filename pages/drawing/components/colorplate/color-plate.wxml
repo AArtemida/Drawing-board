@@ -1,10 +1,11 @@
 <!--pages/drawing/component/colorpicker1/colorPicker.wxml-->
 <view id="wapper" class="color-picker-container">
   <view class="card rgb-box">
-    <view class="color-slider" wx:for="{{rgba}}" wx:for-index="key" wx:key="{{key}}"
-    wx:if="{{key!='A'}}">
+    <view class="color-slider" wx:for="{{rgba}}" wx:for-index="key" wx:key="{{key}}">
       <text>{{key}}:</text>
-      <slider bindchange="colorSliderChange" value="{{item}}" min="0" max="255" show-value activeColor="{{rgbColor[key]}}" block-size="15" data-param="{{key}}"/>
+      <slider wx:if="{{key!='A'}}" bindchange="colorSliderChange" value="{{item}}" min="0" max="255" show-value activeColor="{{rgbColor[key]}}" block-size="15" data-param="{{key}}"/>
+      <slider wx:else bindchange="alphaSliderChange" value="{{alpha}}" min="0" max="1" step="0.1"
+      show-value activeColor="{{rgbColor[key]}}" block-size="15" data-param="{{key}}"/>
     </view>
   </view>
   <view class="card preview-box">

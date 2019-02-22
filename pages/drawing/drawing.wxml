@@ -19,43 +19,56 @@
         </view>
         <!--工具-->
         <view wx:if="{{index==1}}">
-          <button bindtap="changeClear" data-param="false" class="{{!isClear?'select':''}}">
-            <text class="iconfont icon-qianbi"></text></button>
-          <button bindtap="changeClear" data-param="true" class="{{isClear?'select':''}}">
-            <text class="iconfont icon-xiangpica"></text></button>
-          <button bindtap="pickerColor" class="{{isColorPicker?'select':''}}">
-            <text class="iconfont icon-color-picker"></text></button>
-          <button bindtap=""><text class="iconfont icon-youqitong"></text></button>
+          <button bindtap="changeClear" data-param="false" 
+            class="iconfont icon-qianbi {{!isClear?'select':''}}"></button>
+          <button bindtap="changeClear" data-param="true" 
+            class="iconfont icon-xiangpica {{isClear?'select':''}}"></button>
+          <button bindtap="pickerColor" 
+            class="iconfont icon-color-picker {{isColorPicker?'select':''}}"></button>
+          <button bindtap="setDrawRect" 
+            class="iconfont icon-tuceng {{drawRect?'select':''}}"></button>
+          <button bindtap="addText" class="iconfont icon-wenben {{isText?'select':''}}"></button>
+          <button bindtap="" class="iconfont icon-youqitong"></button>
         </view>
         <!--菜单-->
         <view wx:if="{{index==0}}">
-          <button bindtap="newBuild"><text class="iconfont icon-xinjian"></text></button>
-          <button bindtap="openAndDraw"><text class="iconfont icon-daoru-tianchong"></text></button>
-          <button bindtap="saveAsImg"><text class="iconfont icon-baocun"></text></button>
+          <button bindtap="newBuild" 
+            class="iconfont icon-xinjian {{isBuild?'select':''}}"></button>
+          <button bindtap="openAndDraw" class="iconfont icon-daoru-tianchong"></button>
+          <button bindtap="saveAsImg" class="iconfont icon-baocun"></button>
         </view>
-        <!--色盘-->
-        <view wx:if="{{index==3}}">
+        <!--色盘 每次都更新一遍-->
+        <view wx:if="{{index==3&&selectToolIndex==3}}">
           <!-- <color-picker class="color-picker" colorData="{{penColor}}"></color-picker> -->
-            <color-plate colorData="{{penColor}}" bindchangecolor="changPenColor"></color-plate>
+            <color-plate colorData="{{penColor}}" bindchangecolor="changePenColor"></color-plate>
         </view>
       </view>
     </view>
   </view>
   <!--图层-->
   <view class="area">
-    <canvas style="width: 750rpx; height: 1090rpx;" class="{{canvasHidden?'canvas-left':''}}" 
+    <view class="canvas-box {{canvasHidden?'canvas-left':''}}">
+      <canvas  
             canvas-id="draw-canvas" 
             disable-scroll="false"
             bindtouchstart="touchStart"
             bindtouchmove="touchMove"
             bindtouchend="touchEnd"
-            bindtap="getCanvasColor"></canvas>
-    <image hidden="{{!canvasHidden}}" bindtap="clickImg" class="imgCanvas" src="{{imgCanvas}}"></image>
+            bindtap="getCanvasColor"
+            style="width:{{windowWidth}}px;height:{{windowHeight}}px;"
+    ></canvas>
+    </view>
+    <image hidden="{{!canvasHidden}}" bindtap="clickImg" class="imgCanvas" src="{{imgCanvas}}"
+      style="width:{{windowWidth}}px;height:{{windowHeight}}px;"></image>
   </view>
   <!--提示框-->
   <view class="modal-box">
     <modal hidden="{{!isBuild}}" title="提示" confirm-text="保存" cancel-text="放弃" bindcancel="cancelSave" bindconfirm="confirmSave" no-cancel="{{nocancel}}">
        即将新建，是否保存当前图片？
+    </modal>
+
+    <modal hidden="{{!isText}}" title="请输入文字" confirm-text="确定" cancel-text="取消" bindcancel="cancelText" bindconfirm="confirmText">
+      <input class="addText" value="{{theText}}" bindblur="changeText"/>
     </modal>
   </view>
 </view>

@@ -4,7 +4,7 @@
 .toolbox{
   padding:10rpx 20rpx;
   border:1px solid #ccc;
-  margin-top:40rpx;
+  margin-top:30rpx;
   border-radius:2px;
   box-shadow:5px 5px 5px #eee;
   background:#f9f9f9;
@@ -44,26 +44,41 @@
 .select-tool .tool-children{display: block;z-index:100;
 }
 .tool-children button{
-  font-size:24rpx;
   float:left;
   margin:10px;
   box-shadow:4px 4px 5px #eee;
-}
-.tool-children button.select{
-  border: none;
-  outline:none;
-  cursor: pointer;
-  background: none;
-  color: white;
-  background: linear-gradient(to right, #af9ce8, #f3a3a3);
+  background:#f8f8f8;
   letter-spacing: 1px;
   border-radius: 5px;
   overflow: hidden;
 }
+.tool-children button.select{
+  border: none;
+  outline:none;
+  background: none;
+  color: white;
+  background: linear-gradient(to right, #af9ce8, #f3a3a3);
+}
 .area{
   margin-top:120rpx;
 }
-.canvas-left{position:absolute;left:100%;}
+.area canvas{background:#fff;width: 750rpx; height: 1090rpx;}
+.canvas-box{
+  position:absolute;
+  left:0;
+}
+.canvas-left{left:-100%;}
+/* .canvas-left canvas{
+  height:0;
+  width:0;
+} */
 .imgCanvas{
-  width: 750rpx; height: 1100rpx;
+  width: 750rpx; height: 1090rpx;
+}
+input.addText{
+  background:#fff;
+  border-radius:3px;
+  border:1px solid #ccc;
+  padding:0 10px;
+  color:#333;
 }

@@ -17,5 +17,6 @@
   </view>
   <view class="canvas-box">
     <!-- <canvas style=" width: 750rpx; height: 1200rpx;" canvas-id="dotCanvas" disable-scroll="false"></canvas> -->
+    <view class="bubble"></view>
   </view>
 </view>

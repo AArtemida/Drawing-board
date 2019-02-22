@@ -24,9 +24,11 @@ Component({
       R: 'red',
       G: 'green',
       B: 'blue',
+      A:'#cccccc'
     },
     colorStr:'#fff',
     colorInput:'fff',
+    alpha:1,//透明度
   },
   //组件生命周期
   lifetimes:{
@@ -97,7 +99,11 @@ Component({
     colorSliderChange(e){
       let param = e.currentTarget.dataset.param;
       let rgb = this.data.rgba;
-      rgb[param] = e.detail.value;
+      if(param == 'A'){
+        rgb[param] = e.detail.value.toFixed(1);
+      }else{
+        rgb[param] = e.detail.value;
+      }
       this.setData({ rgba: rgb });
       console.log(this.data.rgba);
 
@@ -108,6 +114,7 @@ Component({
       //绑定外部方法
       this.triggerEvent('changecolor', {
         colorData: this.data.colorStr,
+        alpha: this.data.alpha,
       });
     },
     //根据data.rgba获取rgba()
@@ -124,6 +131,15 @@ Component({
       //绑定外部方法
       this.triggerEvent('changecolor', {
         colorData: this.data.colorData,
+      });
+    },
+    //改变透明度
+    alphaSliderChange(e){
+      this.setData({ alpha: e.detail.value });
+      //绑定外部方法
+      this.triggerEvent('changecolor', {
+        colorData: this.data.colorStr,
+        alpha: this.data.alpha,
       });
     },
   }
