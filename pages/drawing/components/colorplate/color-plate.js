@@ -7,6 +7,10 @@ Component({
     colorData: {
       type: String,
       value: "#fff"
+    },
+    alpha:{
+      type:String,
+      value:1,
     }
   },
 

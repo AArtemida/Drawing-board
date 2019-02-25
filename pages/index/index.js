@@ -51,8 +51,7 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     });
-    let _this = this;
-    setTimeout(function (){ _this.start();},500);
+    setTimeout(() => { this.start();},300);
     
   },
   start(){

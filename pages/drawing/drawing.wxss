@@ -4,7 +4,7 @@
 .toolbox{
   padding:10rpx 20rpx;
   border:1px solid #ccc;
-  margin-top:30rpx;
+  margin-top:20rpx;
   border-radius:2px;
   box-shadow:5px 5px 5px #eee;
   background:#f9f9f9;
@@ -60,14 +60,10 @@
   background: linear-gradient(to right, #af9ce8, #f3a3a3);
 }
 .area{
-  margin-top:120rpx;
+  margin-top:100rpx;
 }
 .area canvas{background:#fff;width: 750rpx; height: 1090rpx;}
-.canvas-box{
-  position:absolute;
-  left:0;
-}
-.canvas-left{left:-100%;}
+.canvas-left{position:fixed;left:-100%;}
 /* .canvas-left canvas{
   height:0;
   width:0;

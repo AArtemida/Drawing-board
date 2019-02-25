@@ -40,7 +40,8 @@
         <!--色盘 每次都更新一遍-->
         <view wx:if="{{index==3&&selectToolIndex==3}}">
           <!-- <color-picker class="color-picker" colorData="{{penColor}}"></color-picker> -->
-            <color-plate colorData="{{penColor}}" bindchangecolor="changePenColor"></color-plate>
+            <color-plate colorData="{{penColor}}" bindchangecolor="changePenColor" 
+              alpha="{{transparency}}"></color-plate>
         </view>
       </view>
     </view>

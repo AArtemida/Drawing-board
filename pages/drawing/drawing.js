@@ -61,6 +61,8 @@ Page({
     //文字
     isText:false,
     theText:'',
+    //缩放
+    scale: 1,
   },
 
   /**
@@ -76,14 +78,13 @@ Page({
   onReady: function () {
     //const context = wx.createCanvasContext('draw-canvas');
     this.context = wx.createCanvasContext('draw-canvas');
-    let _this = this;
     //获取宽高
     wx.getSystemInfo({
-      success: function (res) {
+      success: (res) => {
         console.log(res.pixelRatio)
         console.log(res.windowWidth, res.windowHeight)
         let pixel = res.pixelRatio;
-        _this.setData({ windowWidth: res.windowWidth, windowHeight: res.windowHeight - 60});
+        this.setData({ windowWidth: res.windowWidth, windowHeight: res.windowHeight - 50});
       }
     })
   },
@@ -131,6 +132,7 @@ Page({
   },
   //手指触摸动作开始
   touchStart(e) {
+    if (e.touches.length > 1) return;
     //得到触摸点的坐标
     this.startX = e.changedTouches[0].x
     this.startY = e.changedTouches[0].y
@@ -144,6 +146,7 @@ Page({
       this.context.setLineCap('round');
 
     }else if (this.data.isClear) { //橡皮擦
+      this.context.setGlobalAlpha(1);
       this.context.setStrokeStyle('#FFFFFF');
       this.context.setLineCap('round'); //设置线条端点的样式
       this.context.setLineJoin('round'); //设置两线相交处的样式
@@ -166,8 +169,7 @@ Page({
       startY1 = e.changedTouches[0].y;
     if (this.data.isColorPicker) {
 
-    } else if (this.data.drawRect) {//矩形
-      
+    } else if (this.data.drawRect) {//矩形 
       var newW = startX1 - this.startX, newH = startY1 - this.startY;
       this.context.clearRect(0, 0, this.data.windowWidth, this.data.windowHeight);
       this.context.strokeRect(this.startX, this.startY, newW, newH);//画新的矩形
@@ -246,8 +248,7 @@ Page({
   },
   //隐藏弹出框
   hiddenChildrenBox() {
-    let _this = this;
-    setTimeout(function () { _this.setData({ selectToolIndex: null }); }, 800);
+    setTimeout(() => { this.setData({ selectToolIndex: null }); }, 800);
 
     this.showCanvas();
   },
@@ -263,7 +264,7 @@ Page({
     //this.showCanvas();
 
     if (!this.data.isColorPicker) return;
-    let _this = this;
+
     var startX = e.detail.x;
     var startY = e.detail.y;
     const cfg = {
@@ -279,7 +280,7 @@ Page({
         const data = res.data;
         console.log("colorpicker:",data);
         let rgba = "rgba("+data[0]+","+data[1]+","+data[2]+",1)";
-        _this.setData({ isColorPicker: false, isClear: false, penColor: rgba });
+        this.setData({ isColorPicker: false, isClear: false, penColor: rgba });
       },
       fail: (err) => {
         console.error(err)
@@ -288,15 +289,14 @@ Page({
   },
   //保存图片
   saveAsImg(func) {
-    let _this = this;
     // wx.canvasToTempFilePath({
     //   canvasId: 'draw-canvas',
     //   success: (res) => {
         wx.saveImageToPhotosAlbum({
-          filePath: _this.data.imgCanvas,
+          filePath: this.data.imgCanvas,
           success: (res) => {
             console.log(res);
-            _this.hiddenChildrenBox();
+            this.hiddenChildrenBox();
             if (func && func instanceof Function){
               func();
             }
@@ -313,7 +313,6 @@ Page({
   },
   //导入图片
   openAndDraw() {
-    let _this = this;
     this.hiddenChildrenBox();
     wx.chooseImage({
       success: (res) => {
@@ -349,12 +348,11 @@ Page({
   },
   //保存canvas
   saveCanvas() {
-    let _this = this;
     this.context.draw(false, wx.canvasToTempFilePath({
       canvasId: 'draw-canvas',
       success: (res) => { 
         console.log('result',res);
-        _this.setData({ imgCanvas: res.tempFilePath, canvasHidden:true});
+        this.setData({ imgCanvas: res.tempFilePath, canvasHidden:true});
       },
       fail: (err) => {
         console.error('error',err);
