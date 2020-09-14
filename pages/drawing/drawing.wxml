@@ -2,62 +2,146 @@
 <view class="container">
   <!--工具栏-->
   <view class="toolbox clearfix">
-    <view class="tool-icon {{selectToolIndex==index?'select-tool':''}}" wx:for="{{toolList}}"
-    hidden="{{index!=5&&!showTool}}" wx:key="{{index}}">
-     <text class="iconfont tool-iconfont {{item.icon}}" bindtap="showToolChildren" data-index="{{index}}"></text>
-     <!--显示框-->
-      <view class="tool-children" wx:if="{{index!=5}}">
+    <view wx:for="{{toolList}}" class="tool-icon {{selectToolIndex==item.key?'select-tool':''}}"
+    hidden="{{item.key!='hide'&&!showTool}}" wx:key="key">
+      <view class="iconfont tool-iconfont {{item.icon}}" bindtap="showToolChildren" data-index="{{item.key}}"></view>
+      <!--显示框-->
+      <view class="tool-children {{item.key==='layer'?'layer_child_box':''}}" wx:if="{{item.key!='hide'}}">
         <text class="section_title">{{item.title}}</text>
         <!--滑块-->
-        <view wx:if="{{index == 2}}">
+        <view wx:if="{{item.key == 'pen'}}" class="text_center">
           <slider bindchange="sliderPenchange" value="{{penSize}}" min="1" max="30" show-value activeColor="#F595B2"
           block-size="15"/>
+          <view class="pen_size_box" style="width:{{penSize}}px;height:{{penSize}}px;background:{{penColor}}"></view>
         </view>
-        <view wx:if="{{index == 4}}">
-          <slider bindchange="sliderPenchange" value="{{eraserSize}}" min="1" max="60" show-value activeColor="#F595B2"
-          block-size="15"/>
+        <!--橡皮-->
+        <view wx:if="{{item.key == 'rubber'}}" class="text_center">
+          <view class="slider_box">
+            <text>尺寸:</text>
+            <slider bindchange="sliderPenchange" value="{{eraserSize}}" min="1" max="60" show-value activeColor="#F595B2"
+            block-size="15"/>
+          </view>
+          <view class="slider_box">
+            <text>透明度:</text>
+            <slider bindchange="changeRubberOpacity" value="{{rubberOpacity}}" min="0.1" max="1" step="0.1"
+            show-value block-size="15" activeColor="#F595B2"/>
+          </view>
+          <view class="pen_size_box rubber_size_box" 
+            style="width:{{eraserSize}}px;height:{{eraserSize}}px;background:rgba(255,255,255,{{rubberOpacity}})"></view>
         </view>
         <!--工具-->
-        <view wx:if="{{index==1}}">
-          <button bindtap="changeClear" data-param="false" 
-            class="iconfont icon-qianbi {{!isClear?'select':''}}"></button>
-          <button bindtap="changeClear" data-param="true" 
-            class="iconfont icon-xiangpica {{isClear?'select':''}}"></button>
-          <button bindtap="pickerColor" 
-            class="iconfont icon-color-picker {{isColorPicker?'select':''}}"></button>
-          <button bindtap="setDrawRect" 
-            class="iconfont icon-tuceng {{drawRect?'select':''}}"></button>
-          <button bindtap="addText" class="iconfont icon-wenben {{isText?'select':''}}"></button>
-          <button bindtap="" class="iconfont icon-youqitong"></button>
+        <view wx:if="{{item.key=='tool'}}">
+          <button bindtap="changeClear" data-param="false" class="{{isPen?'select':''}}">
+            <text class="tool_child_icon iconfont icon-qianbi"></text>
+            <text class="tool_text">铅笔</text>
+          </button>
+          <button bindtap="changeClear" data-param="true" class="{{isClear?'select':''}}">
+            <text class="tool_child_icon iconfont icon-xiangpica"></text>
+            <text class="tool_text">橡皮</text>
+          </button>
+          <button bindtap="pickerColor" class="{{isColorPicker?'select':''}}">
+            <text class="tool_child_icon iconfont icon-color-picker"></text>
+            <text class="tool_text">取色</text>
+          </button>
+          <button bindtap="setDrawRect" class="{{drawRect?'select':''}}">
+            <text class="tool_child_icon iconfont icon-tuceng"></text>
+            <text class="tool_text">方形</text>
+          </button>
+          <button bindtap="setDrawCircle" class="{{isCircle?'select':''}}">
+            <text class="tool_child_icon iconfont icon-tuceng"></text>
+            <text class="tool_text">圆形</text>
+          </button>
+          <button bindtap="addText" class="{{isText?'select':''}}">
+            <text class="tool_child_icon iconfont icon-wenben"></text>
+            <text class="tool_text">文本</text>
+          </button>
+          <button bindtap="setFillColor" class="{{isFillColor?'select':''}}">
+            <text class="tool_child_icon iconfont icon-youqitong"></text>
+            <text class="tool_text">填充</text>
+          </button>
+          <!-- <button bindtap="startDrag" class="{{isDrag?'select':''}}">
+            <text class="tool_child_icon iconfont icon-ziyuan"></text>
+            <text class="tool_text">拖拽</text>
+          </button> -->
+          <button bindtap="showBrushModal" class="{{brushType?'select':''}}">
+            <text class="tool_child_icon iconfont icon-shuazi"></text>
+            <text class="tool_text">笔刷</text>
+          </button>
         </view>
         <!--菜单-->
-        <view wx:if="{{index==0}}">
-          <button bindtap="newBuild" 
-            class="iconfont icon-xinjian {{isBuild?'select':''}}"></button>
-          <button bindtap="openAndDraw" class="iconfont icon-daoru-tianchong"></button>
-          <button bindtap="saveAsImg" class="iconfont icon-baocun"></button>
+        <view wx:if="{{item.key=='menu'}}">
+          <button bindtap="newBuild" class="{{isBuild?'select':''}}">
+            <text class="tool_child_icon iconfont icon-xinjian"></text>
+            <text class="tool_text">新建</text>
+          </button>
+          <button bindtap="openAndDraw">
+            <text class="tool_child_icon iconfont icon-daoru-tianchong"></text>
+            <text class="tool_text">导入</text>
+          </button>
+          <button bindtap="saveAsImg">
+            <text class="tool_child_icon iconfont icon-baocun"></text>
+            <text class="tool_text">保存</text>
+          </button>
         </view>
         <!--色盘 每次都更新一遍-->
-        <view wx:if="{{index==3&&selectToolIndex==3}}">
+        <view wx:if="{{item.key=='color'&&selectToolIndex=='color'}}">
           <!-- <color-picker class="color-picker" colorData="{{penColor}}"></color-picker> -->
-            <color-plate colorData="{{penColor}}" bindchangecolor="changePenColor" 
+            <view class="tab_wapper">
+              <view wx:for="{{colorPlateTabs}}" wx:for-item="cItem" 
+                wx:for-index="cIndex" wx:key="cIndex" class="tab_item {{cIndex==colorPlateSelect?'select':''}}"
+                data-param="{{cIndex}}"
+                bindtap="changeColorPlate">{{cItem}}</view>
+            </view>
+            <color-plate wx:if="{{colorPlateSelect==0}}" colorData="{{penColor}}" bindchangecolor="changePenColor" 
               alpha="{{transparency}}"></color-plate>
+            <color-picker wx:else colorData="{{penColor}}" bindchangecolor="changePenColor"></color-picker>
+        </view>
+
+        <!--保存的图层-->
+        <view wx:if="{{item.key=='layer'}}" class="layer_box">
+          <view class="iconfont add_layer" bindtap="addLayer">+</view>
+          <scroll-view scroll-y="true" style="height: 600rpx;">
+            <view wx:for="{{layerList}}" wx:for-index="layerIndex" wx:for-item="layerItem" 
+            wx:key="layerIndex" data-index="{{layerIndex}}"
+              class="layer_item {{currentLayer==layerIndex?'current_layer':''}}"
+              bindtap="changeCurrentLayer">
+              <icon class="iconfont icon-yanjing icon_eye"></icon>
+              <image class="layer_img" src="{{layerItem}}"></image>
+            </view>
+          </scroll-view>
         </view>
       </view>
     </view>
   </view>
+  <!--菜单-->
+  <!-- <cover-view class="tool-children" wx:if="{{selectToolIndex=='menu'}}">
+    <cover-view bindtap="newBuild" class="_button {{isBuild?'select':''}}">
+      <cover-view class="tool_child_icon iconfont icon-xinjian"></cover-view>
+      <cover-view class="tool_text">新建</cover-view>
+    </cover-view>
+    <cover-view class="_button" bindtap="openAndDraw">
+      <cover-view class="tool_child_icon iconfont icon-daoru-tianchong"></cover-view>
+      <cover-view class="tool_text">导入</cover-view>
+    </cover-view>
+    <cover-view class="_button" bindtap="saveAsImg">
+      <cover-view class="tool_child_icon iconfont icon-baocun"></cover-view>
+      <cover-view class="tool_text">保存</cover-view>
+    </cover-view>
+  </cover-view> -->
   <!--图层-->
   <view class="area">
     <view class="canvas-box {{canvasHidden?'canvas-left':''}}">
-      <canvas  
-            canvas-id="draw-canvas" 
+      <!-- <image wx:for="{{layerList}}" wx:for-index="layerIndex" wx:for-item="layerItem" 
+          wx:key="layerIndex" class="layer_canvas_img" style="width:{{windowWidth}}px;height:{{windowHeight}}px;"
+          src="{{layerItem}}" wx:if="layerItem"></image> -->
+      <canvas type="2d" id="draw-canvas" 
             disable-scroll="false"
             bindtouchstart="touchStart"
             bindtouchmove="touchMove"
             bindtouchend="touchEnd"
             bindtap="getCanvasColor"
             style="width:{{windowWidth}}px;height:{{windowHeight}}px;"
-    ></canvas>
+      ></canvas>
     </view>
     <image hidden="{{!canvasHidden}}" bindtap="clickImg" class="imgCanvas" src="{{imgCanvas}}"
       style="width:{{windowWidth}}px;height:{{windowHeight}}px;"></image>
@@ -70,6 +154,14 @@
 
     <modal hidden="{{!isText}}" title="请输入文字" confirm-text="确定" cancel-text="取消" bindcancel="cancelText" bindconfirm="confirmText">
       <input class="addText" value="{{theText}}" bindblur="changeText"/>
+    </modal>
+
+    <modal hidden="{{!showBrush}}" title="选择笔刷" confirm-text="确定" cancel-text="取消" bindcancel="cancelSelectBrush" bindconfirm="setBrushType">
+      <view wx:for="{{brushList}}" wx:for-index="key" wx:key="key" data-param="{{key}}"
+        class="brush_btn {{brushType==key?'select':''}}"
+        bindtap="setBrushType"> 
+        {{item}}
+      </view>
     </modal>
   </view>
 </view>

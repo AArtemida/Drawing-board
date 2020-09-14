@@ -30,7 +30,7 @@
   padding-left:102rpx;
 }
 .input-color input{
-  width:120rpx;
+  width:140rpx;
   border:1px solid #ccc;
   border-radius:3px;
   background:#fff;

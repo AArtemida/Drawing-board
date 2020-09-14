@@ -1,0 +1,10 @@
+node_modules
+/pages/drawing/drawing1.js
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

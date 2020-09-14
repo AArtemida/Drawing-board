@@ -1,8 +1,32 @@
 <!--pages/drawing/component/colorpicker2/colorPicker.wxml-->
-<view id="colorPicker2" class="color-picker-container">
-    <view class="pick-area">
-      <view class="color-picker-map"></view>
-      <view class="color-picker-bar"></view>
+<view id="colorPicker" class="picker-wapper">
+    <!--饱和度/亮度面板-->
+    <view class="picker-content" style="background:{{background}}" bindtap="areaClick">
+      <view class="picker" 
+        style="transform:translate({{pickerLeft}}px,{{pickerTop}}px);border-color:{{hsv.v<0.4?'#eee':'#333'}}"></view>
     </view>
-    <view class="data-area"></view>
+    <!--自定义色相滑块-->
+    <view class="picker-rail">
+      <view class="picker-bar" bindtap="sliderClick"></view>
+      <view class="slider" 
+        bindtouchstart="sliderStart"
+        bindtouchmove="sliderMove"
+        bindtouchend="sliderEnd"
+        style="transform:translateX({{hueLeft}}px)"></view>
+    </view>
+    <!--自定义透明度滑块-->
+    <view class="picker-rail picker-alpha" bindtap="sliderClickAlpha">
+      <view class="picker-alpha-bar" style="background:{{alphaBg}}"></view>
+      <view class="slider"
+        bindtouchstart="sliderStartAlpha"
+        bindtouchmove="sliderMoveAlpha"
+        bindtouchend="sliderEndAlpha"
+        style="transform:translateX({{alphaLeft}}px)"></view>
+    </view>
+    <!--选中颜色-->
+    <view>
+      <text>预览</text>
+      <view class="block-color" style="background:{{colorVal}}"></view>
+      <!-- <text>预览</text> -->
+    </view>
 </view>

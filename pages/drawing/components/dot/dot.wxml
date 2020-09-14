@@ -1,2 +1,0 @@
-<!--pages/drawing/components/dot/dot.wxml-->
-<canvas canvas-id="dotCanvas" disable-scroll="false"></canvas>

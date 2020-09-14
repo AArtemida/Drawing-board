@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "dot-canvas": "./components/dot/dot",
-    "color-plate":"./components/colorplate/color-plate"
+    "color-plate":"./components/colorplate/color-plate",
+    "color-picker": "./components/colorpicker/color-picker"
   }
 }

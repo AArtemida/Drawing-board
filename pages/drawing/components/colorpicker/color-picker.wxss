@@ -1,23 +1,82 @@
 /* pages/drawing/component/colorpicker2/colorPicker.wxss */
-.color-picker-container .pick-area .color-picker-map {
-  position: relative;
-  width: 500rpx;
-  height: 500rpx;
+.picker-wapper{
+  margin-top: 20rpx;
 }
-.color-picker-container  .color-picker-bar {
+.picker-bar {
   position: relative;
-  width: 60rpx;
-  height: 500rpx;
-  border: 2rpx solid #666;
-  background: -webkit-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+  border-radius: 2px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #f00 0%, #ff0 16.66%, #0f0 33.33%, #0ff 50%, #00f 66.66%, #f0f 83.33%, #f00 100%);
 }
-.color-picker-container .color-picker-bar .picker {
+.picker-rail{
+  position: relative;
+  height: 30rpx;
+  width: 100%;
+  margin-top: 30rpx;
+}
+.picker-rail .slider {
   position: absolute;
   z-index: 10;
-  width: 110%;
-  height: 10rpx;
-  left: 50%;
-  transform: translateX(-50%);
+  border-radius: 50%;
+  width: 36rpx;
+  height: 36rpx;
   background: #fff;
-  border: 2rpx solid #666;
+  top: -3rpx;
+  left: -5rpx;
+  box-shadow: 1px 1px 5px #ccc;
+}
+.picker-content{
+  position: relative;
+  height: 240rpx;
+  background: transparent;
+  width: 100%;
+}
+.picker-content::before,.picker-content::after{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/*饱和度 一条从左往右，由纯白到透明的径向渐变*/
+.picker-content::before{
+  background: linear-gradient(to right, white, transparent);
+}
+/*明度 一条从下往上，由纯黑到透明的径向渐变*/
+.picker-content::after{
+  background: linear-gradient(to top, black, transparent);
+}
+
+.picker-alpha{
+  background-color: #fff;
+  background-image: linear-gradient(45deg, #c5c5c5 25%, transparent 0, transparent 75%, #c5c5c5 0, #c5c5c5), linear-gradient(45deg, #c5c5c5 25%, transparent 0, transparent 75%, #c5c5c5 0, #c5c5c5);
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 5px;
+  height: 21rpx;
+  margin-bottom: 24rpx;
+}
+.picker-alpha .slider{
+  height: 30rpx;
+  width: 30rpx;
+}
+.picker-alpha-bar{
+  height: 100%;
+}
+.picker{
+  border-radius: 50%;
+  border: 2px solid #999;
+  height: 12rpx;
+  width: 12rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 20;
+}
+.block-color{
+  width:150px;
+  height:40px;
+  background:#fff;
+  margin:10px auto;
 }

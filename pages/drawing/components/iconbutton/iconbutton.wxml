@@ -1,0 +1,5 @@
+<!--pages/drawing/components/iconbutton/iconbutton.wxml-->
+<button bindtap="clickButton" data-param="{{dataParam}}" class="{{isSelect?'select':''}}">
+  <text class="tool_child_icon iconfont {{icon}}"></text>
+  <text class="tool_text">{{title}}</text>
+</button>
